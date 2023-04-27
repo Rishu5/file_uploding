@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.xml.sax.InputSource;
 
 import com.example.demo.crud.helper.Uplodefile;
@@ -44,7 +45,14 @@ public class fileController {
 		}
 		
 		if(isuploded) {
-			return ResponseEntity.ok("File uploded successfully");
+			
+			//( ye hame =  ServletUriComponentsBuilder.fromCurrentContextPath() =localhost:8080 tk ka path return kare gaa;
+			
+			//total path hame ye mile ge =     http://localhost:8080/image/choosable file name 
+			
+			return ResponseEntity
+					.ok(ServletUriComponentsBuilder.fromCurrentContextPath().path("/image/").path(file.getOriginalFilename()).toUriString());
+
 		}else{
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("file not uploded successfully");
 			

@@ -9,17 +9,26 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
 @Component
 public class Uplodefile {
 
-	public final String uplodedir = "D:\\S_T_S\\File_Uploding_by_Boot\\src\\main\\resources\\static\\image";
-
+//	public final String uplodedir = "D:\\S_T_S\\File_Uploding_by_Boot\\src\\main\\resources\\static\\image";
+//yah dynamic image folder ka path de gaa (D:\\S_T_S\\File_Uploding_by_Boot\\src\\main\\resources\\static\\image)
+	public final String uplodedir = new ClassPathResource("static/image/").getFile().getAbsolutePath();
+public Uplodefile()throws Exception  {
+	
+}
+	
+	
 	public boolean fileuUplode(MultipartFile file) {
 
 		boolean uploded = false;
+		
+		System.out.println("this is file path " + uplodedir);
 
 		try {
 			InputStream is = file.getInputStream();
